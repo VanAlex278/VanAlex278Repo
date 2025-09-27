@@ -1,5 +1,5 @@
-from masks import get_mask_card_number
-from masks import get_mask_account
+from masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(card_account_number: str) -> str:
     """Функцию маскировки номера банковской карты или номера счета"""
@@ -16,6 +16,3 @@ def mask_account_card(card_account_number: str) -> str:
 def get_date(old_data: str) -> str:
     """Возвращает дату в формате "ДД.ММ.ГГГГ" """
     return old_data[8:10] + "." + old_data[5:7] + "." + old_data[:4]
-
-
-print(mask_account_card("Счет 35383033474447895560"))
