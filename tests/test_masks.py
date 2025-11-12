@@ -1,6 +1,7 @@
 import pytest
 
-from src.masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_account, get_mask_card_number
+
 
 @pytest.mark.parametrize("cart_number, cart_mask", [
     (7000792289606361, '7000 79** **** 6361'),
@@ -8,9 +9,7 @@ from src.masks import get_mask_card_number, get_mask_account
     (75000792289606361, 'Некорректный номер карты'),
     ('7000792289606361', '7000 79** **** 6361'),
     ])
-
-
-def test_get_mask_card_number(cart_number,cart_mask):
+def test_get_mask_card_number(cart_number, cart_mask):
     assert get_mask_card_number(cart_number) == cart_mask
 
 
@@ -20,7 +19,5 @@ def test_get_mask_card_number(cart_number,cart_mask):
     (35383033474447895560, '**5560'),
     ('73654108430135874505', '**4505'),
     ])
-
-
 def test_get_mask_account(account_number, account_mask):
     assert get_mask_account(account_number) == account_mask
