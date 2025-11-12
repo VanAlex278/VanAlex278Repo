@@ -22,6 +22,7 @@ pip install -r requirements.txt
 - Фильтрация по статусу: filter_by_state()
 - Сортировка по дате: sort_by_date()
 - Генераторы номеров карт и транзакций: filter_by_currency(), transaction_descriptions(), card_number_generator()
+- Декоратор: log
 
 ## Тестирование:
 
