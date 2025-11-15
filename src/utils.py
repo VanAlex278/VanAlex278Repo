@@ -13,5 +13,5 @@ def list_transaction_returned(path_to_json_file='../data/operations.json') -> li
                 return []
         return list_transaction
     except (FileNotFoundError, JSONDecodeError) as e:
-        print("Файл отсутствует или повреждён!")
+        print(f"Файл отсутствует или повреждён! {e}")
         return []
