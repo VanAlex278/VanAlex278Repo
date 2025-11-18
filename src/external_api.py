@@ -1,4 +1,5 @@
 import os
+
 import requests
 from dotenv import load_dotenv
 
@@ -12,7 +13,7 @@ def currency_conversion(list_transaction: list) -> float:
     load_dotenv()
     headers = {"apikey": os.getenv("APILAYER_API_KEY")}
     try:
-        response = requests.get(url, headers=headers, data = payload)
+        response = requests.get(url, headers=headers, data=payload)
     except requests.exceptions.ConnectionError:
         print("Connection Error. Please check your network connection.")
     status_code = response.status_code
@@ -22,13 +23,3 @@ def currency_conversion(list_transaction: list) -> float:
         return amount_rub
     else:
         return status_code
-
-if __name__ == '__main__':
-    transaction = {
-        "operationAmount": {
-            "amount": "100",
-            "currency": {"code": "EUR"}
-        }
-    }
-    summa_rub = currency_conversion(transaction)
-    print(summa_rub)
