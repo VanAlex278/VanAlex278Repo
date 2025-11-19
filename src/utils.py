@@ -9,7 +9,7 @@ def list_transaction_returned(path_to_json_file: str = "../data/operations.json"
             list_transaction = json.load(f)
             if list_transaction is None:
                 return []
-            elif type(list_transaction) is list:
+            elif type(list_transaction) is not list:
                 return []
         return list_transaction
     except (FileNotFoundError, JSONDecodeError) as e:
