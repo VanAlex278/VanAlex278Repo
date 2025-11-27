@@ -10,7 +10,7 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-def get_mask_card_number(card_number: int) -> str:
+def get_mask_card_number(card_number: int | str) -> str:
     """Функцию маскировки номера банковской карты"""
     card_number1 = str(card_number)
     if len(card_number1) != 16 or not card_number1.isdigit():
@@ -21,7 +21,7 @@ def get_mask_card_number(card_number: int) -> str:
     return card_mask
 
 
-def get_mask_account(account_number: int) -> str:
+def get_mask_account(account_number: int | str) -> str:
     """Функцию маскировки номера банковского счета"""
     account_number1 = str(account_number)
     if len(account_number1) != 20 or not account_number1.isdigit():

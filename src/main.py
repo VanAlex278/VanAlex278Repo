@@ -1,11 +1,11 @@
 from src.masks import process_bank_search
-from src.utils import list_transaction_returned
-from src.reader import csv_file_reader, excel_file_reader
 from src.processing import filter_by_state, sort_by_date
+from src.reader import csv_file_reader, excel_file_reader
+from src.utils import list_transaction_returned
 from src.widget import get_date, mask_account_card
 
 
-def main():
+def main() -> None:
     list_transactions = selection_file()
     list_answers = selection_operations()
     modified_list = filter_by_state(list_transactions, list_answers[0])
@@ -25,12 +25,17 @@ def main():
             print("Транзакции с такими словами не найдены")
         else:
             modified_list = modified_list2
-    print(f"Всего банковских операций в выборке: {len(modified_list)}")
-    for transaction in modified_list:
-        print(get_date(transaction["date"]), end=" ")
-        print(transaction["description"])
-        print(f"{mask_account_card(transaction["from"])} -> {mask_account_card(transaction["to"])}")
-        print(f"Сумма: {transaction["operationAmount"]["amount"]} {transaction["operationAmount"]["currency"]["code"]}")
+    if len(modified_list) == 0:
+        print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+    else:
+        print(f"Всего банковских операций в выборке: {len(modified_list)}")
+        for transaction in modified_list:
+            print(get_date(transaction["date"]), end=" ")
+            print(transaction["description"])
+            print(f"{mask_account_card(transaction["from"])} -> {mask_account_card(transaction["to"])}")
+            print(
+                f"Сумма: {transaction["operationAmount"]["amount"]} {transaction["operationAmount"]["currency"]["code"]}"
+            )
 
 
 def selection_file() -> list[dict]:
@@ -60,8 +65,10 @@ def selection_file() -> list[dict]:
 
 def selection_operations() -> list:
     """Функция для выбора пользовательских настроек сортировки транзакций"""
-    print("Программа: Введите статус, по которому необходимо выполнить фильтрацию. Доступные для фильтровки статусы:"
-          " EXECUTED, CANCELED, PENDING")
+    print(
+        "Программа: Введите статус, по которому необходимо выполнить фильтрацию. Доступные для фильтровки статусы:"
+        " EXECUTED, CANCELED, PENDING"
+    )
     list_operation = ["EXECUTED", "CANCELED", "PENDING"]
     list_answers = []
     while True:
