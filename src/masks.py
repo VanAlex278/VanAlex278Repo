@@ -42,6 +42,7 @@ def process_bank_search(list_transactions:list[dict], search:str)->list[dict]:
 
 
 def process_bank_operations(list_transactions:list[dict], categories: str = "description") -> dict:
+    """Функция статистики транзакций по категориям"""
     list_categories = []
     for i in list_transactions:
         list_categories.append(i[categories])
