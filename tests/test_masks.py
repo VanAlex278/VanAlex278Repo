@@ -1,6 +1,6 @@
 import pytest
 
-from src.masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number, process_bank_search, process_bank_operations
 
 
 @pytest.mark.parametrize("cart_number, cart_mask", [
@@ -21,3 +21,23 @@ def test_get_mask_card_number(cart_number, cart_mask):
     ])
 def test_get_mask_account(account_number, account_mask):
     assert get_mask_account(account_number) == account_mask
+
+
+def test_process_bank_search(test_list_of_transactions):
+    result = process_bank_search(test_list_of_transactions, "карты")
+    assert result == [{
+        "id": 895315941,
+        "state": "EXECUTED",
+        "date": "2018-08-19T04:27:37.904916",
+        "operationAmount": {
+            "amount": "56883.54",
+            "currency": {"name": "USD", "code": "USD"}
+        },
+        "description": "Перевод с карты на карту",
+        "from": "Visa Classic 6831982476737658",
+        "to": "Visa Platinum 8990922113665229"
+    }]
+
+def test_process_bank_operations(test_list_of_transactions):
+    result = str(process_bank_operations(test_list_of_transactions))
+    assert result == "Counter({'Перевод организации': 2, 'Перевод со счета на счет': 2, 'Перевод с карты на карту': 1})"
