@@ -1,4 +1,4 @@
-from src.masks import process_bank_search
+from src.masks import process_bank_search, process_bank_operations
 from src.processing import filter_by_state, sort_by_date
 from src.reader import csv_file_reader, excel_file_reader
 from src.utils import list_transaction_returned
@@ -25,11 +25,10 @@ def main() -> None:
             print("Транзакции с такими словами не найдены")
         else:
             modified_list = modified_list2
-    print(modified_list)
     if len(modified_list) == 0:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
-        print(f"Всего банковских операций в выборке: {len(modified_list)}")
+        print(f"Всего банковских операций в выборке: {process_bank_operations(modified_list)}")
         for transaction in modified_list:
             print(get_date(transaction["date"]), end=" ")
             print(transaction["description"])

@@ -1,4 +1,5 @@
 import logging
+import re
 from collections import Counter
 
 
@@ -35,9 +36,9 @@ def get_mask_account(account_number: int | str) -> str:
 def process_bank_search(list_transactions:list[dict], search:str)->list[dict]:
     """Функция поиска строки в описании."""
     search_list = []
-    for transac in list_transactions:
-        if  search in transac["description"]:
-            search_list.append(transac)
+    for transaction in list_transactions:
+        if  re.search(search, transaction["description"], flags=re.IGNORECASE):
+            search_list.append(transaction)
     return search_list
 
 
