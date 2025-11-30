@@ -16,7 +16,7 @@ def main() -> None:
     if list_answers[2] == "ДА":
         modified_list2 = []
         for transaction in modified_list:
-            if transaction["operationAmount"]["currency"]["code"] == "RUB":
+            if transaction["currency_code"] == "RUB":
                 modified_list2.append(transaction)
         modified_list = modified_list2
     if list_answers[3] != "НЕТ":
@@ -25,6 +25,7 @@ def main() -> None:
             print("Транзакции с такими словами не найдены")
         else:
             modified_list = modified_list2
+    print(modified_list)
     if len(modified_list) == 0:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
@@ -33,9 +34,7 @@ def main() -> None:
             print(get_date(transaction["date"]), end=" ")
             print(transaction["description"])
             print(f"{mask_account_card(transaction["from"])} -> {mask_account_card(transaction["to"])}")
-            print(
-                f"Сумма: {transaction["operationAmount"]["amount"]} {transaction["operationAmount"]["currency"]["code"]}"
-            )
+            print(f"Сумма: {transaction["amount"]} {transaction["currency_code"]}")
 
 
 def selection_file() -> list[dict]:
