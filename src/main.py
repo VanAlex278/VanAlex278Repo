@@ -1,4 +1,4 @@
-from src.masks import process_bank_search, process_bank_operations
+from src.masks import process_bank_search
 from src.processing import filter_by_state, sort_by_date
 from src.reader import csv_file_reader, excel_file_reader
 from src.utils import list_transaction_returned
@@ -28,8 +28,9 @@ def main() -> None:
     if len(modified_list) == 0:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
     else:
-        print(f"Всего банковских операций в выборке: {process_bank_operations(modified_list)}")
+        print(f"Всего банковских операций в выборке: {len(modified_list)}")
         for transaction in modified_list:
+            print()
             print(get_date(transaction["date"]), end=" ")
             print(transaction["description"])
             print(f"{mask_account_card(transaction["from"])} -> {mask_account_card(transaction["to"])}")

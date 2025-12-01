@@ -39,5 +39,6 @@ def test_process_bank_search(test_list_of_transactions):
     }]
 
 def test_process_bank_operations(test_list_of_transactions):
-    result = str(process_bank_operations(test_list_of_transactions))
+    test_list = ['Перевод организации', 'Перевод со счета на счет', 'Перевод с карты на карту']
+    result = str(process_bank_operations(test_list_of_transactions, test_list))
     assert result == "Counter({'Перевод организации': 2, 'Перевод со счета на счет': 2, 'Перевод с карты на карту': 1})"
