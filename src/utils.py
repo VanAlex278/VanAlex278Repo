@@ -5,7 +5,7 @@ from json import JSONDecodeError
 
 logger = logging.getLogger('utils')
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('logs/utils.log')
+file_handler = logging.FileHandler('../logs/utils.log')
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -23,7 +23,19 @@ def list_transaction_returned(path_to_json_file: str = "../data/operations.json"
             elif type(list_transaction) is not list:
                 logger.warning(f'file: {path_to_json_file} unsupported format')
                 return []
-        return list_transaction
     except (FileNotFoundError, JSONDecodeError) as e:
         logger.error(f"The file is missing or corrupted! {e}")
         return []
+    modified_list = []
+    for transaction in list_transaction:
+        if transaction == {}:
+            continue
+        if "from" in transaction:
+            pass
+        else:
+            transaction['from'] = "absent"
+        transaction['amount'] = transaction['operationAmount']['amount']
+        transaction['currency_code'] = transaction['operationAmount']['currency']['code']
+        del transaction['operationAmount']
+        modified_list.append(transaction)
+    return modified_list

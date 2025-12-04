@@ -3,6 +3,8 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(card_account_number: str) -> str:
     """Функцию маскировки номера банковской карты или номера счета"""
+    if type(card_account_number) is not str:
+        return "absent"
     list_cart_account = card_account_number.split(" ")
     if len(list_cart_account[-1]) == 16:
         list_cart_account[-1] = get_mask_card_number(list_cart_account[-1])
